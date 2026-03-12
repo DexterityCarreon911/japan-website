@@ -12,9 +12,8 @@ const QRAuthPage: React.FC<{ onAuthenticated: () => void }> = ({ onAuthenticated
 
   const generateQRCode = async () => {
     try {
-      // Generate a unique session ID
-      const sessionId = Date.now().toString(36) + Math.random().toString(36).substr(2);
-      const authUrl = `${window.location.origin}/auth/${sessionId}`;
+      // Use your actual Vercel URL
+      const authUrl = 'https://japan-website-phi.vercel.app/';
       
       // Generate QR code
       const qrDataUrl = await QRCode.toDataURL(authUrl, {
@@ -93,11 +92,11 @@ const QRAuthPage: React.FC<{ onAuthenticated: () => void }> = ({ onAuthenticated
             {!isAuthenticated ? (
               <>
                 <p className="text-gray-300 mb-2">
-                  Please scan the QR code above
+                  Scan QR code or click button below to enter
                 </p>
                 <div className="flex items-center justify-center space-x-2 text-gray-500 text-sm">
                   <Smartphone className="w-4 h-4" />
-                  <span>Use your mobile device camera to scan</span>
+                  <span>Scan to visit japan-website-phi.vercel.app</span>
                 </div>
               </>
             ) : (
