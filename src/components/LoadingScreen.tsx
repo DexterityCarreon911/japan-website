@@ -6,6 +6,7 @@ const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => 
   const mountRef = useRef<HTMLDivElement>(null);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showCredits, setShowCredits] = useState(false);
+  const [creditsComplete, setCreditsComplete] = useState(false);
 
   useEffect(() => {
     // Three.js scene setup
@@ -113,7 +114,6 @@ const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => 
         if (prev >= 100) {
           clearInterval(progressInterval);
           setTimeout(() => setShowCredits(true), 500);
-          setTimeout(() => onComplete(), 4000);
           return 100;
         }
         return prev + 2;
@@ -121,7 +121,19 @@ const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => 
     }, 50);
 
     return () => clearInterval(progressInterval);
-  }, [onComplete]);
+  }, []);
+
+  // Credits timing
+  useEffect(() => {
+    if (showCredits) {
+      const creditsTimer = setTimeout(() => {
+        setCreditsComplete(true);
+        setTimeout(() => onComplete(), 1000);
+      }, 4000); // Show credits for 4 seconds
+
+      return () => clearTimeout(creditsTimer);
+    }
+  }, [showCredits, onComplete]);
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-dark-navy via-charcoal to-black z-50 flex items-center justify-center">
@@ -164,7 +176,7 @@ const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => 
         )}
 
         {/* Credits Phase */}
-        {showCredits && (
+        {showCredits && !creditsComplete && (
           <div className="space-y-8 animate-fade-in">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-japanese-red rounded-full mb-6">
               <Code className="w-8 h-8 text-white" />
@@ -207,6 +219,28 @@ const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => 
             <div className="flex items-center justify-center space-x-2 text-gray-500 text-sm">
               <Shield className="w-4 h-4" />
               <span>Academic Project - BS Information Technology</span>
+            </div>
+          </div>
+        )}
+
+        {/* Transition to Main Page */}
+        {creditsComplete && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-600 rounded-full mb-6">
+              <BookOpen className="w-8 h-8 text-white" />
+            </div>
+            
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Welcome to Japan Knowledge Library
+            </h2>
+            
+            <p className="text-gray-300 mb-8">
+              Loading your Japanese cultural experience...
+            </p>
+
+            <div className="flex items-center justify-center space-x-2 text-gray-500 text-sm">
+              <Sparkles className="w-4 h-4 animate-pulse" />
+              <span>Preparing main library...</span>
             </div>
           </div>
         )}
