@@ -22,6 +22,19 @@ const App: React.FC = () => {
 
   // Check if user is already authenticated (from localStorage)
   useEffect(() => {
+    // Check URL parameters for skip authentication
+    const urlParams = new URLSearchParams(window.location.search);
+    const skipAuth = urlParams.get('skip');
+    
+    if (skipAuth === 'true') {
+      // Skip QR page and go directly to loading
+      setAuthStep('loading');
+      setTimeout(() => {
+        handleLoadingComplete();
+      }, 1000);
+      return;
+    }
+    
     // For testing, always show QR page first
     localStorage.removeItem('jkl_authenticated');
     localStorage.removeItem('jkl_auth_time');

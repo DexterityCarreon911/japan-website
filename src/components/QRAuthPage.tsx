@@ -12,8 +12,8 @@ const QRAuthPage: React.FC<{ onAuthenticated: () => void }> = ({ onAuthenticated
 
   const generateQRCode = async () => {
     try {
-      // Use your actual Vercel URL
-      const authUrl = 'https://japan-website-phi.vercel.app/';
+      // Use your actual Vercel URL with direct loading parameter
+      const authUrl = 'https://japan-website-phi.vercel.app/?skip=true';
       
       // Generate QR code
       const qrDataUrl = await QRCode.toDataURL(authUrl, {
@@ -96,7 +96,7 @@ const QRAuthPage: React.FC<{ onAuthenticated: () => void }> = ({ onAuthenticated
                 </p>
                 <div className="flex items-center justify-center space-x-2 text-gray-500 text-sm">
                   <Smartphone className="w-4 h-4" />
-                  <span>Scan to visit japan-website-phi.vercel.app</span>
+                  <span>Scan to skip directly to loading screen</span>
                 </div>
               </>
             ) : (
