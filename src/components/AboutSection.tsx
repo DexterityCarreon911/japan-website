@@ -118,7 +118,7 @@ const AboutSection: React.FC = () => {
                 <h3 className="text-2xl font-bold text-white">Technology Stack</h3>
               </div>
               <div className="grid grid-cols-3 gap-4">
-                {technologies.map((tech, index) => (
+                {technologies.map((tech) => (
                   <div key={tech.name} className="text-center">
                     <div className="text-2xl mb-2">{tech.icon}</div>
                     <p className="text-gray-300 text-sm">{tech.name}</p>
@@ -133,11 +133,10 @@ const AboutSection: React.FC = () => {
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-white text-center mb-12">Our Team</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member, index) => (
+            {teamMembers.map((member) => (
               <div
-                key={index}
+                key={member.name}
                 className="bg-charcoal p-6 rounded-xl border border-gray-800 hover:border-japanese-red transition-all duration-300 card-hover fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="w-20 h-20 bg-gradient-to-br from-japanese-red to-gray-800 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <Users className="w-10 h-10 text-white" />

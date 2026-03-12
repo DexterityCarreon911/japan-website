@@ -9,7 +9,7 @@ interface BookLibraryProps {
 }
 
 const BookLibrary: React.FC<BookLibraryProps> = ({ books, loading, onBookSelect }) => {
-  const truncateDescription = (description: string, maxLength: number = 150) => {
+  const truncateDescription = (description: string | undefined, maxLength: number = 150) => {
     if (!description) return 'No description available.';
     if (description.length <= maxLength) return description;
     return description.substring(0, maxLength) + '...';

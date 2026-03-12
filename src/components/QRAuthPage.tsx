@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, ArrowRight, Loader2, CheckCircle, Smartphone } from 'lucide-react';
+import { Shield, ArrowRight, CheckCircle, Smartphone } from 'lucide-react';
 import QRCode from 'qrcode';
 
 const QRAuthPage: React.FC<{ onAuthenticated: () => void }> = ({ onAuthenticated }) => {

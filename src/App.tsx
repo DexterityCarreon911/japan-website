@@ -18,14 +18,10 @@ const App: React.FC = () => {
   const [selectedBook, setSelectedBook] = useState<BookItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'library' | 'categories' | 'about'>('home');
-  const [searchQuery, setSearchQuery] = useState('');
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
 
   // Check if user is already authenticated (from localStorage)
   useEffect(() => {
-    const authStatus = localStorage.getItem('jkl_authenticated');
-    const authTime = localStorage.getItem('jkl_auth_time');
-    
     // For testing, always show QR page first
     localStorage.removeItem('jkl_authenticated');
     localStorage.removeItem('jkl_auth_time');
@@ -33,6 +29,8 @@ const App: React.FC = () => {
     
     // Uncomment below for production use
     /*
+    const authStatus = localStorage.getItem('jkl_authenticated');
+    const authTime = localStorage.getItem('jkl_auth_time');
     if (authStatus === 'true' && authTime) {
       const authTimestamp = parseInt(authTime);
       const now = Date.now();
@@ -85,7 +83,6 @@ const App: React.FC = () => {
 
   const handleSearch = async (query: string) => {
     setLoading(true);
-    setSearchQuery(query);
     setCurrentView('library');
     try {
       const response = await booksApi.searchBooks(query, 20);
